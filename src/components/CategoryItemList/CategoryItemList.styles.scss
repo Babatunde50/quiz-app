@@ -1,0 +1,30 @@
+.category-item-list {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    align-items: center;
+
+    .category-item-container {
+        width: 90%;
+        margin: 0.5rem 0;
+        height: 200px;
+    }
+
+}
+
+@media(min-width: 640px) {
+    .category-item-list {
+        flex-direction: row;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    
+        .category-item-container {
+            width: 45%;
+            
+        }
+    
+    }
+}
