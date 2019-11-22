@@ -31,13 +31,13 @@ const categories = [
 	'Entertainment: Cartoon & Animations',
 ];
 
-export default function componentName() {
+export default function componentName( { showModal } ) {
 	return (
         <div className="category-item-list">
             {
                 categories.map(category => (
                     <div key={category} className="category-item-container">
-                        <CategoryItem category={category} />
+                        <CategoryItem showModal={showModal} category={category} />
                     </div>
                 )  )
             }

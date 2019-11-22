@@ -1,0 +1,41 @@
+.form-control {
+	padding: 0.5rem 0;
+	width: 100%;
+	margin: 0.25rem 0;
+	text-align: left;
+
+	input, select {
+		display: block;
+		width: 100%;
+		font: inherit;
+		border: none;
+		border-bottom: 2px solid #ccc;
+		border-radius: 3px 3px 0 0;
+		background: white;
+		padding: 0.15rem 0.25rem;
+		transition: border-color 0.1s ease-out;
+	}
+
+	input:focus,
+	select:focus {
+		border-color: #12013c;
+		outline: none;
+	}
+
+	label {
+		display: block;
+		margin: 0.7rem 0;
+        width: 100%;
+        font-weight: 700;
+	}
+
+	.invalid {
+		border-color: red;
+		background: #fde3e3;
+	}
+
+	.error-message {
+		color: red;
+		margin: 0.25rem 0;
+	}
+}

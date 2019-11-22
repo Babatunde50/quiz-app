@@ -7,12 +7,50 @@
     color: white;
     font-size: 1.2rem;
     font-weight: bold;
+    margin: 0 0.5rem;
+
+    &:hover,
+    &:active,
+    &:focus {
+        background: white;
+        color: #12013c;
+        outline: none;
+    }
+
+    &.outline {
+        background: white;
+        color: #12013c;
+    }
+
+    &.danger {
+        background: #e40763;
+        border-color: #e40763;
+        color: white;
+    }
+
+    &.outline:hover {
+        background: #12013c;
+        color: white;
+    }
+
+    &.danger:hover {
+        background: white;
+        color: #e40763;
+    }
+
+    &[disabled] {
+        background: #ccc;
+        color: white;
+        border-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    &[disabled]:hover {
+        background: #ccc;
+        color: white;
+        border-color: #ccc;
+        cursor: not-allowed;
+    }
+
 }
 
-.button:hover,
-.button:active,
-.button:focus {
-    background: white;
-    color: #12013c;
-    outline: none;
-}
