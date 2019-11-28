@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import CategoryItemList from '../../components/CategoryItemList/CategoryItemList.components';
 import Modal from '../../components/UI/Modal/Modal.components';
 import Button from "../../components/UI/Button/Button.components";
 import TextInput from "../../components/UI/TextInput/TextInput.components"
+import { addOptions, fetchQuizes } from '../../redux/quiz/quiz.actions'
 
-const Homepage = () => {
+const Homepage = ( { addOptions, category, history } ) => {
   const [ userData , setUserData ] = useState({
     numOfQuestions: '',
     difficulty: 'any',
@@ -27,7 +29,9 @@ const Homepage = () => {
   }
 
   const handleSubmit = () => {
-    console.log(userData)
+    addOptions(userData)
+    fetchQuizes({ ...userData, category  })
+    history.push('/quiz')
   }
 
 	return (
@@ -62,4 +66,13 @@ const Homepage = () => {
 	);
 }
 
-export default Homepage;
+const mapDispatchToProps = dispatch => ({
+  addOptions: categories => dispatch(addOptions(categories)),
+  fetchQuizes: quizOptions => dispatch(fetchQuizes(quizOptions))
+})
+
+const mapStateToProps = state => ({
+  category: state.quizes.options.category
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
