@@ -1,10 +1,19 @@
 import React from 'react';
 
+import Quiz from '../../components/Quiz/Quiz.components';
+import Button from '../../components/UI/Button/Button.components'
+
+import './Quizpage.styles.scss'
+
 const QuizPage = () => {
   return (
-    <div>
-        <h1>This is the Quiz page</h1>
-    </div>
+    <>
+        <Quiz />
+        <div className="next-pev-buttons">
+          <Button> Prev </Button>
+          <Button> Next </Button>
+        </div>
+    </>
   );
 }
 

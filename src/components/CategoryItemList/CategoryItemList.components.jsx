@@ -35,9 +35,9 @@ export default function componentName( { showModal } ) {
 	return (
         <div className="category-item-list">
             {
-                categories.map(category => (
+                categories.map( (category, id) => (
                     <div key={category} className="category-item-container">
-                        <CategoryItem showModal={showModal} category={category} />
+                        <CategoryItem showModal={showModal} category={category} value={ id === 0 ? 'any' : 8 + id} />
                     </div>
                 )  )
             }

@@ -5,11 +5,11 @@ import './CategoryItem.styles.scss';
 import Button from '../UI/Button/Button.components';
 import { addOptions } from '../../redux/quiz/quiz.actions'
 
-const CategoryItem = ({ category, showModal, addCategory }) => {
+const CategoryItem = ({ category, value, showModal, addCategory }) => {
 
 	const clickHandler = () => {
 		showModal();
-		addCategory({ category })
+		addCategory({ category: value })
 	}
 
 	return (
