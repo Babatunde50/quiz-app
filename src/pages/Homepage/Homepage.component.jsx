@@ -5,9 +5,9 @@ import CategoryItemList from '../../components/CategoryItemList/CategoryItemList
 import Modal from '../../components/UI/Modal/Modal.components';
 import Button from "../../components/UI/Button/Button.components";
 import TextInput from "../../components/UI/TextInput/TextInput.components"
-import { addOptions, fetchQuizes } from '../../redux/quiz/quiz.actions'
+import { addOptions, fetchQuizesStartAsync } from '../../redux/quiz/quiz.actions'
 
-const Homepage = ( { addOptions, category, history } ) => {
+const Homepage = ( { addOptions, category, history, fetchQuizesStartAsync } ) => {
   const [ userData , setUserData ] = useState({
     numOfQuestions: '',
     difficulty: 'any',
@@ -30,7 +30,7 @@ const Homepage = ( { addOptions, category, history } ) => {
 
   const handleSubmit = () => {
     addOptions(userData)
-    fetchQuizes({ ...userData, category  })
+    fetchQuizesStartAsync({ ...userData, category  })
     history.push('/quiz')
   }
 
@@ -68,7 +68,7 @@ const Homepage = ( { addOptions, category, history } ) => {
 
 const mapDispatchToProps = dispatch => ({
   addOptions: categories => dispatch(addOptions(categories)),
-  fetchQuizes: quizOptions => dispatch(fetchQuizes(quizOptions))
+  fetchQuizesStartAsync: quizOptions => dispatch(fetchQuizesStartAsync(quizOptions))
 })
 
 const mapStateToProps = state => ({

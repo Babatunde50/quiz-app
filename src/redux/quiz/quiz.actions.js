@@ -1,17 +1,41 @@
 import axios from 'axios';
 import { quizActionTypes } from './quiz.types';
 
-export const fetchQuizes = async quizOptions => {
-	
-		console.log(quizOptions);
-		const { numOfQuestions, difficulty, type, category } = quizOptions;
-		// const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=${category}&difficulty=${difficulty}&type=${type}`;
-		const url = `https://opentdb.com/api.php?amount=${numOfQuestions}`;
-		console.log('Starting', url);
-		const response = await axios.get(url);
-		console.log(response.data);
-	
-};
+export const fetchQuizesStart = () => ({
+	type: quizActionTypes.FETCH_QUIZES_START
+})
+
+export const fetchQuizSuccess = quizes => ({
+	type: quizActionTypes.FETCH_QUIZES_SUCCESS,
+	payload: {
+		quizes
+	}
+})
+
+export const fetchQuizFailure = errorMessage => ({
+	type: quizActionTypes.FETCH_QUIZES_FAILURE,
+	payload: {
+		errorMessage
+	}
+})
+
+export const fetchQuizesStartAsync = (quizOptions) => {
+	const { numOfQuestions, difficulty, type, category } = quizOptions;
+	let url = `https://opentdb.com/api.php?amount=${numOfQuestions}`;
+	category !== 'any' ? url += `&category=${category}` : url += '';
+	difficulty !== 'any' ? url += `&difficulty=${difficulty}` : url += '';
+	type !== 'any' ? url += `&type=${type}` : url += '';
+    return async (dispatch) => {
+        try {
+			dispatch(fetchQuizesStart())
+			const response = await axios.get(url);
+			dispatch(fetchQuizSuccess(response.data.results))
+        } catch(error) {
+			console.log(error.message)
+            dispatch(fetchQuizFailure(error.message))
+        }
+    }
+}
 
 export const addOptions = options => ({
 	type: quizActionTypes.ADD_OPTIONS,
@@ -19,3 +43,11 @@ export const addOptions = options => ({
 		options,
 	},
 });
+
+export const nextQuestion = () => ({
+	type: quizActionTypes.NEXT_QUESTION
+})
+
+export const prevQuestion = () => ({
+	type: quizActionTypes.PREV_QUESTION
+})
