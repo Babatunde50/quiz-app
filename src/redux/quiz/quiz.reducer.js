@@ -40,14 +40,14 @@ const quizReducer = (state=INITIAL_STATE, action) => {
         case quizActionTypes.NEXT_QUESTION:
             return {
                 ...state,
+                currentQuestion: state.quizes[state.questionNumber + 1],
                 questionNumber: state.questionNumber + 1,
-                currentQuestion: state.quizes[state.questionNumber],
             }
         case quizActionTypes.PREV_QUESTION:
             return {
                 ...state,
+                currentQuestion: state.quizes[state.questionNumber - 1],
                 questionNumber: state.questionNumber - 1,
-                currentQuestion: state.quizes[state.questionNumber]
             }
         default:
             return state;

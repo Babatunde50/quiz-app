@@ -3,19 +3,39 @@ import { connect } from 'react-redux'
 
 import Quiz from '../../components/Quiz/Quiz.components';
 import Button from '../../components/UI/Button/Button.components'
+import Spinner from '../../components/UI/Spinner/Spinner.components'
 import { nextQuestion, prevQuestion } from '../../redux/quiz/quiz.actions'
 
 import './Quizpage.styles.scss'
 
-const QuizPage = ({ nextQuestion, prevQuestion }) => {
+const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber, options }) => {
+  let loading = true;
+  let disablePrev = false;
+  let disableNext = false;
+  if(currentQuestion) {
+    loading = false;
+    +questionNumber === 0 ? disablePrev = true : disablePrev = false;
+    +questionNumber + 1 === +options.numOfQuestions ? disableNext = true : disableNext = false;
+  }
   return (
-    <>
-        <Quiz />
+    loading ? (
+      <Spinner />
+    ) : (
+      <>
+        <Quiz currentQuestion={currentQuestion} questionNumber={questionNumber} />
         <div className="next-pev-buttons">
-          <Button handleClick={prevQuestion}> Prev </Button>
-          <Button handleClick={nextQuestion}> Next </Button>
+          <Button disabled={disablePrev} handleClick={prevQuestion}> Prev </Button>
+          {
+            disableNext ? (
+              <Button> Submit </Button> 
+            ) : (
+              <Button disabled={disableNext} handleClick={nextQuestion}> Next </Button> 
+            ) 
+          }
+
         </div>
     </>
+    )
   );
 }
 
@@ -24,4 +44,11 @@ const mapDispatchToProps = dispatch => ({
   prevQuestion: () => dispatch(prevQuestion())
 })
 
-export default connect(null, mapDispatchToProps)(QuizPage);
+
+const mapStateToProps = state => ({
+  currentQuestion: state.quizes.currentQuestion,
+  questionNumber: state.quizes.questionNumber,
+  options: state.quizes.options
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);
