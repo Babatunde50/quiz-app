@@ -51,3 +51,14 @@ export const nextQuestion = () => ({
 export const prevQuestion = () => ({
 	type: quizActionTypes.PREV_QUESTION
 })
+
+export const selectedAnswer = (answer) => ({
+	type: quizActionTypes.SELECTED_ANSWER,
+	payload: {
+		answer
+	}
+})
+
+export const submitQuiz = () => ({
+	type: quizActionTypes.SUBMIT_QUIZ
+})

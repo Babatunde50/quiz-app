@@ -6,7 +6,16 @@ const INITIAL_STATE = {
     options: {},
     isLoading: false,
     errorMessage: '',
-    questionNumber: 0
+    questionNumber: 0,
+    totalScores: null
+}
+
+const getScores = (quizes) => {
+    quizes.forEach(quiz => {
+      console.log(quiz.selected_answer)
+      console.log(quiz.correct_answer)  
+    })
+    return quizes.filter(quiz => quiz.selected_answer.trim() === quiz.correct_answer.trim()).length;
 }
 
 const quizReducer = (state=INITIAL_STATE, action) => {
@@ -43,11 +52,29 @@ const quizReducer = (state=INITIAL_STATE, action) => {
                 currentQuestion: state.quizes[state.questionNumber + 1],
                 questionNumber: state.questionNumber + 1,
             }
+        case quizActionTypes.SELECTED_ANSWER:
+            return {
+                ...state,
+                quizes: state.quizes.map((quiz, index) => {
+                    if(index === state.questionNumber) {
+                        return {
+                            ...quiz,
+                            selected_answer: action.payload.answer
+                        }
+                    }
+                    return quiz;
+                })
+            }
         case quizActionTypes.PREV_QUESTION:
             return {
                 ...state,
                 currentQuestion: state.quizes[state.questionNumber - 1],
                 questionNumber: state.questionNumber - 1,
+            }
+        case quizActionTypes.SUBMIT_QUIZ:
+            return {
+                ...state,
+                totalScores: getScores(state.quizes)
             }
         default:
             return state;
