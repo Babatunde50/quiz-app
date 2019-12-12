@@ -9,7 +9,11 @@ import { shuffle } from '../../utils/helper'
 
 import './Quizpage.styles.scss'
 
-const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber, options, submitQuiz }) => {
+const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber, options, submitQuiz, history }) => {
+  const handleSubmit = () => {
+    submitQuiz()
+    history.push('/reviews')
+  }
   let loading = true;
   let disablePrev = false;
   let disableNext = false;
@@ -30,7 +34,7 @@ const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber,
           <Button disabled={disablePrev} handleClick={prevQuestion}> Prev </Button>
           {
             disableNext ? (
-              <Button handleClick={submitQuiz} > Submit </Button> 
+              <Button handleClick={handleSubmit} > Submit </Button> 
             ) : (
               <Button disabled={disableNext} handleClick={nextQuestion}> Next </Button> 
             ) 
