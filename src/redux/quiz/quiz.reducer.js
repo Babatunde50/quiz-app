@@ -7,14 +7,15 @@ const INITIAL_STATE = {
     isLoading: false,
     errorMessage: '',
     questionNumber: 0,
-    totalScores: null
+    totalScores: null,
+    totalQuestionsAnswered: null
+}
+
+const getTotalQuestionAnswered = (quizes) => {
+    return quizes.filter(quiz => !!quiz.selected_answer ).length;
 }
 
 const getScores = (quizes) => {
-    quizes.forEach(quiz => {
-      console.log(quiz.selected_answer)
-      console.log(quiz.correct_answer)  
-    })
     return quizes.filter(quiz => quiz.selected_answer.trim() === quiz.correct_answer.trim()).length;
 }
 
@@ -74,7 +75,8 @@ const quizReducer = (state=INITIAL_STATE, action) => {
         case quizActionTypes.SUBMIT_QUIZ:
             return {
                 ...state,
-                totalScores: getScores(state.quizes)
+                totalScores: getScores(state.quizes),
+                totalQuestionsAnswered: getTotalQuestionAnswered(state.quizes)
             }
         default:
             return state;

@@ -8,7 +8,10 @@ export const fetchQuizesStart = () => ({
 export const fetchQuizSuccess = quizes => ({
 	type: quizActionTypes.FETCH_QUIZES_SUCCESS,
 	payload: {
-		quizes
+		quizes: quizes.map(quiz => ({
+			...quiz,
+			selected_answer: ''
+		}))
 	}
 })
 
