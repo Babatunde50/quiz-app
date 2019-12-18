@@ -1,12 +1,21 @@
 import React from 'react';
+import { connect }  from 'react-redux'
 
-function ReviewPage() {
+import Reviews from '../../components/Reviews/Reviews.components'
+
+function ReviewPage({quizes, totalScores}) {
   return (
-    <>
-        <h1>This is the Review Page</h1>
-    </>
+    <div>
+        <h1> {totalScores} </h1>
+        <Reviews quizes={quizes} />
+    </div>
   );
 }
 
 
-export default ReviewPage;
+const mapStateToProps = state => ({
+  quizes: state.quizes.quizes,
+  totalScores: state.quizes.totalScores
+})
+
+export default connect(mapStateToProps)(ReviewPage);

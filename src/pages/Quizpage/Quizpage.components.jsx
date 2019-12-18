@@ -37,8 +37,8 @@ const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber,
             <p> You have answered {totalQuestionsAnswered} out of {options.numOfQuestions} </p> 
             <hr></hr>
             <p>Do you really want to continue with your submision? </p>
-            <Button> Yes</Button> 
-            <Button> No</Button> 
+            <Button handleClick={() => history.push('/reviews')}> Yes</Button> 
+            <Button handleClick={() => setShowModal(false)} > No</Button> 
 
           </Modal> }
         <Quiz currentQuestion={currentQuestion} options={shuffledOptions} questionNumber={questionNumber} />

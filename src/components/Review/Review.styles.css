@@ -1,0 +1,6 @@
+.review {
+  background-color: white;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+}
