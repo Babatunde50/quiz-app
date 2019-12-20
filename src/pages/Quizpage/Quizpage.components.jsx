@@ -43,12 +43,12 @@ const QuizPage = ({ nextQuestion, prevQuestion, currentQuestion, questionNumber,
           </Modal> }
         <Quiz currentQuestion={currentQuestion} options={shuffledOptions} questionNumber={questionNumber} />
         <div className="next-pev-buttons">
-          <Button disabled={disablePrev} handleClick={prevQuestion}> Prev </Button>
+          <Button disabled={disablePrev} handleClick={prevQuestion}> <i class="fas fa-angle-left"></i> Prev </Button>
           {
             disableNext ? (
               <Button handleClick={handleSubmit} > Submit </Button> 
             ) : (
-              <Button disabled={disableNext} handleClick={nextQuestion}> Next </Button> 
+              <Button disabled={disableNext} handleClick={nextQuestion}> Next <i class="fas fa-angle-right"></i> </Button> 
             ) 
           }
         </div>

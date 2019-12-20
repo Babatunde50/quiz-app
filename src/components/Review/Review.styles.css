@@ -4,3 +4,9 @@
   padding: 1rem;
   margin-bottom: 0.5rem;
 }
+.review .fa-times {
+  color: red;
+}
+.review .check-circle {
+  color: green;
+}

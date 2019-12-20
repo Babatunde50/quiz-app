@@ -1,0 +1,17 @@
+.review-page {
+  text-align: center;
+}
+.review-page .review__title {
+  color: white;
+  margin-bottom: 0.5rem;
+}
+.review-page .link {
+  margin: 1.3rem;
+}
+.review-page .back {
+  color: white;
+  text-decoration: none;
+  font-weight: bolder;
+  background-color: black;
+  padding: 0.5rem;
+}
