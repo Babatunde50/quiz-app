@@ -1,4 +1,14 @@
-.next-pev-buttons {
+.quiz-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.quiz-page .quiz-container {
+  max-height: 90%;
+  width: 80%;
+}
+.quiz-page .quiz-container .next-pev-buttons {
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;

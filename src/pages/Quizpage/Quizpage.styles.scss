@@ -1,5 +1,18 @@
-.next-pev-buttons {
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;   
+.quiz-page {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+
+	.quiz-container {
+		max-height: 90%;
+        // overflow: scroll;
+        width: 80%;
+
+		.next-pev-buttons {
+			padding: 0 2rem;
+			display: flex;
+			justify-content: space-between;
+		}
+	}
 }
