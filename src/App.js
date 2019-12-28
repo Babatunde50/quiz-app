@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 
 import Header from './components/Header/Header.components';
 import HomePage from './pages/Homepage/Homepage.component';
 import QuizPage from './pages/Quizpage/Quizpage.components';
 import ReviewPage from './pages/ReviewPage/ReviewPage.components';
-import { resetAll } from './redux/quiz/quiz.actions';
 
 import './App.css';
 
-function App({ resetAll }) {
-	useEffect(() => {
-		resetAll();
-		console.log('RESET')
-	});
+function App() {
 	return (
 		<div className="App">
 			<Header />
@@ -27,8 +21,5 @@ function App({ resetAll }) {
 	);
 }
 
-const mapDispatchToProps = dispatch => ({
-	resetAll: () => dispatch(resetAll()),
-});
 
-export default connect(null, mapDispatchToProps)(App);
+export default App;
