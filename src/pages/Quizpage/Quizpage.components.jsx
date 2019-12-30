@@ -20,12 +20,34 @@ const QuizPage = ({
 	submitQuiz,
 	history,
 }) => {
-  const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    if(!options.numOfQuestions) {
-      return history.push("/")
-    }
-  });
+	// states
+	const [showModal, setShowModal] = useState(false);
+	const [timeLeft, setTimeLeft] = useState(null);
+	const [totalTime, setTotalTime] = useState(Date.now() + options.numOfQuestions * 60 * 1000)
+	// lifecycles
+	// count down timer logic
+	const calculateTimeLeft = (totalTime) => {
+		const difference = totalTime - Date.now();
+		let timeLeft = {};
+		console.log(difference)
+		if (difference > 0) {
+			timeLeft = {
+				minutes: Math.floor((difference / 1000 / 60) % 60),
+				seconds: Math.floor((difference / 1000) % 60),
+			};
+		}
+		return timeLeft;
+	};
+	useEffect(() => {
+		if (!options.numOfQuestions) {
+			return history.push('/');
+		}
+	}, []);
+	useEffect(() => {
+		setTimeout(() => {
+			setTimeLeft(calculateTimeLeft(totalTime));
+		}, 1000);
+	}, [timeLeft]);
 	const handleSubmit = () => {
 		submitQuiz();
 		setShowModal(true);
@@ -60,6 +82,7 @@ const QuizPage = ({
 			)}
 			<div className="quiz-container">
 				<Quiz currentQuestion={currentQuestion} options={shuffledOptions} questionNumber={questionNumber} />
+				<p> { timeLeft.minutes } { timeLeft.seconds } </p>
 				<div className="next-pev-buttons">
 					<Button disabled={disablePrev} handleClick={prevQuestion}>
 						{' '}
