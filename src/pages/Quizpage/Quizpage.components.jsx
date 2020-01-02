@@ -6,7 +6,7 @@ import Button from '../../components/UI/Button/Button.components';
 import Spinner from '../../components/UI/Spinner/Spinner.components';
 import Modal from '../../components/UI/Modal/Modal.components';
 import { nextQuestion, prevQuestion, submitQuiz } from '../../redux/quiz/quiz.actions';
-import { shuffle } from '../../utils/helper';
+// import { shuffle } from '../../utils/helper';
 
 import './Quizpage.styles.scss';
 
@@ -20,23 +20,25 @@ const QuizPage = ({
 	submitQuiz,
 	history,
 }) => {
-	// states
 	const [showModal, setShowModal] = useState(false);
-	const [timeLeft, setTimeLeft] = useState(null);
-	const [totalTime, setTotalTime] = useState(Date.now() + options.numOfQuestions * 60 * 1000)
-	// lifecycles
-	// count down timer logic
-	const calculateTimeLeft = (totalTime) => {
+	const [timeLeft, setTimeLeft] = useState({});
+	const [totalTime] = useState(Date.now() + options.numOfQuestions * 30 * 1000);
+	const calculateTimeLeft = totalTime => {
 		const difference = totalTime - Date.now();
 		let timeLeft = {};
-		console.log(difference)
 		if (difference > 0) {
 			timeLeft = {
 				minutes: Math.floor((difference / 1000 / 60) % 60),
 				seconds: Math.floor((difference / 1000) % 60),
 			};
+		} else {
+			timeLeft = null;
 		}
 		return timeLeft;
+	};
+	const handleSubmit = () => {
+		submitQuiz();
+		setShowModal(true);
 	};
 	useEffect(() => {
 		if (!options.numOfQuestions) {
@@ -44,14 +46,18 @@ const QuizPage = ({
 		}
 	}, []);
 	useEffect(() => {
+		if(timeLeft === null) {
+			handleSubmit();
+			setTimeout(() => {
+				return history.push('/reviews');
+			}, 1000);
+			return;
+		}
 		setTimeout(() => {
 			setTimeLeft(calculateTimeLeft(totalTime));
 		}, 1000);
 	}, [timeLeft]);
-	const handleSubmit = () => {
-		submitQuiz();
-		setShowModal(true);
-	};
+	
 	let loading = true;
 	let disablePrev = false;
 	let disableNext = false;
@@ -60,7 +66,9 @@ const QuizPage = ({
 		loading = false;
 		+questionNumber === 0 ? (disablePrev = true) : (disablePrev = false);
 		+questionNumber + 1 === +options.numOfQuestions ? (disableNext = true) : (disableNext = false);
-		shuffledOptions = shuffle([currentQuestion.correct_answer, ...currentQuestion.incorrect_answers]);
+		if (!shuffledOptions) {
+			shuffledOptions = [currentQuestion.correct_answer, ...currentQuestion.incorrect_answers];
+		}
 	}
 	return loading ? (
 		<div className="quiz-page">
@@ -81,21 +89,24 @@ const QuizPage = ({
 				</Modal>
 			)}
 			<div className="quiz-container">
+				<h1 className="quiz-timer">
+					{' '}
+					{timeLeft && timeLeft.minutes} : {timeLeft && timeLeft.seconds}{' '}
+				</h1>
 				<Quiz currentQuestion={currentQuestion} options={shuffledOptions} questionNumber={questionNumber} />
-				<p> { timeLeft.minutes } { timeLeft.seconds } </p>
 				<div className="next-pev-buttons">
 					<Button disabled={disablePrev} handleClick={prevQuestion}>
 						{' '}
 						<i class="fas fa-angle-left"></i> Prev{' '}
 					</Button>
-					{disableNext ? (
+					{disableNext ? 
 						<Button handleClick={handleSubmit}> Submit </Button>
-					) : (
+					 : 
 						<Button disabled={disableNext} handleClick={nextQuestion}>
 							{' '}
 							Next <i class="fas fa-angle-right"></i>{' '}
 						</Button>
-					)}
+					}
 				</div>
 			</div>
 		</div>

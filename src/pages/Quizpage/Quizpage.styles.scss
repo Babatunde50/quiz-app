@@ -7,12 +7,25 @@
 	.quiz-container {
 		max-height: 90%;
         // overflow: scroll;
-        width: 80%;
+		width: 80%;
+		text-align: center;
 
 		.next-pev-buttons {
 			padding: 0 2rem;
 			display: flex;
 			justify-content: space-between;
 		}
+	}
+
+	.quiz-timer {
+		display: inline-block;
+		color: white;
+		padding: 1rem;
+		border: 2px solid white;
+		border-radius: 50%;
+		background: black;
+		text-align: center;
+		min-width: 125px;
+		margin-bottom: 0.6rem;
 	}
 }

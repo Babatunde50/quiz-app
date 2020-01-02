@@ -7,9 +7,21 @@
 .quiz-page .quiz-container {
   max-height: 90%;
   width: 80%;
+  text-align: center;
 }
 .quiz-page .quiz-container .next-pev-buttons {
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;
+}
+.quiz-page .quiz-timer {
+  display: inline-block;
+  color: white;
+  padding: 1rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: black;
+  text-align: center;
+  min-width: 125px;
+  margin-bottom: 0.6rem;
 }
